@@ -1,0 +1,6 @@
+/* trying to relearn css, I choose the font, background color, and margin size here */
+body {
+    margin: 0;
+    font-family: 'Trebuchet MS', sans-serif;
+    background-color: #f4f4f4;
+}
