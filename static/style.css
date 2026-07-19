@@ -26,7 +26,7 @@ body {
 }
 
 .logo-img {
-    height: 80px;
+    height: 75px;
     width: auto;  /* so logo doesn't stretch */
 }
 .btn-secondary, .btn-primary {
@@ -39,6 +39,31 @@ body {
 .btn-secondary { border: 2px solid #0066cc; color: #0066cc; }
 .btn-primary { background-color: #0066cc; color: white; }
 
-/* section for the background */
+/* section for the background and slogan */
+.hero-container {
+    /* loads your  image file straight from internet */
+    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+                url('https://www.thomascrauwels.ch/wp-content/uploads/2020/10/bec-des-rosses-201804_dsc9125.jpg') no-repeat center center/cover;
+
+    height: 80vh;          /* using vh units to have image take up 80% of screen */
+    display: flex;         /* Allows us to center items inside it */
+    flex-direction: column;
+    align-items: center;   /* centers text horizontally */
+    justify-content: center;/* centers text vertically */
+}
+
+.headline-badge {
+    background-color: white;
+    padding: 10px 50px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.headline-badge h1 {
+    margin: 0;
+    font-size: 38px;
+    color: #111;
+    letter-spacing: 1px;
+}
 
 /* section for the evlauation and comparison bubbles */
