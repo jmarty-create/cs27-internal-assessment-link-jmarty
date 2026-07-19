@@ -5,5 +5,9 @@ app = Flask(__name__)
 def home():
     #telling flask to look inside templates folder, find home.html,and display it
     return render_template('home.html')
+
+@app.route('/evaluate')
+def evaluate():
+    return render_template('evaluate.html')
 if __name__ == '__main__':
     app.run(debug=True)
