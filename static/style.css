@@ -4,3 +4,41 @@ body {
     font-family: 'Trebuchet MS', sans-serif;
     background-color: #f4f4f4;
 }
+
+/* navigation bar layout in this section */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* pushes logo to left, buttons to right */
+    align-items: center;
+    padding: 15px 30px;
+    background-color: white;
+    border-bottom: 2px solid #ddd;
+}
+.logo-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0066cc;
+}
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* puts a space between the logo image and the text */
+}
+
+.logo-img {
+    height: 80px;
+    width: auto;  /* so logo doesn't stretch */
+}
+.btn-secondary, .btn-primary {
+    text-decoration: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+.btn-secondary { border: 2px solid #0066cc; color: #0066cc; }
+.btn-primary { background-color: #0066cc; color: white; }
+
+/* section for the background */
+
+/* section for the evlauation and comparison bubbles */
