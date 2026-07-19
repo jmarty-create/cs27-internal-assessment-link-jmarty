@@ -46,7 +46,7 @@ body {
                 url('https://www.thomascrauwels.ch/wp-content/uploads/2020/10/bec-des-rosses-201804_dsc9125.jpg') no-repeat center center/cover;
 
     height: 80vh;          /* using vh units to have image take up 80% of screen */
-    display: flex;         /* Allows us to center items inside it */
+    display: flex;         /* allows us to center items inside it */
     flex-direction: column;
     align-items: center;   /* centers text horizontally */
     justify-content: center;/* centers text vertically */
