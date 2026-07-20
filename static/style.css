@@ -26,7 +26,7 @@ body {
 }
 
 .logo-img {
-    height: 75px;
+    height: 60px;
     width: auto;  /* so logo doesn't stretch */
 }
 .btn-secondary, .btn-primary {

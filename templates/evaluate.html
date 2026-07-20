@@ -2,6 +2,54 @@
 <html>
 <head>
     <title>SlopeGuard Assessment</title>
-    <!-- Testing to see if the evalution bubble brings the user to the right page-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+<body>
+
+    <header class="navbar">
+        <div class="logo-area">
+            <span class="logo-text">SlopeGuard Assessment Inputs</span>
+        </div>
+        <div class="nav-buttons">
+            <!-- reroutes to the home page here-->
+            <a href="/" class="btn-secondary">Back Home</a>
+        </div>
+    </header>
+
+    <main style="padding: 40px; max-width: 500px; margin: 0 auto;">
+        <h2>Enter Details</h2>
+
+        <form action="/calculate" method="POST">
+
+            <p>
+                <label>Slope Angle (Degrees):</label><br>
+                <input type="number" name="slope_angle" min="0" max="90" required>
+                <!-- the required essentially checks if the field is left empty and shows an error message-->
+            </p>
+            <!-- drop down for the slope aspect-->
+            <p>
+                <label>Slope Aspect (Direction):</label><br>
+                <select name="slope_aspect">
+                    <option value="N">North</option>
+                    <option value="NE">Northeast</option>
+                    <option value="E">East</option>
+                    <option value="S">South</option>
+                    <option value="W">West</option>
+                </select>
+            </p>
+            <p>
+                <!-- drop down for the group size-->
+                <label>Group Size:</label><br>
+                <select name="group_size">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3-4">3-4</option>
+                    <option value="5+">5+</option>
+                </select>
+            </p>
+            <button type="submit" class="btn-primary" style="border:none; cursor:pointer;">Run Risk Analysis</button>
+        </form>
+    </main>
+
+</body>
 </html>
