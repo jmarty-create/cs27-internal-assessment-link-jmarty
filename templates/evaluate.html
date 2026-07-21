@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SlopeGuard Assessment</title>
+    <title>SlopeGuard - Assessment</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -20,23 +20,41 @@
         <h2>Enter Details</h2>
 
         <form action="/calculate" method="POST">
+            <p>
+                <label>Resort / Region Location:</label><br>
+                <input type="text" name="location" placeholder="e.g. Verbier, Switzerland" required>
+            </p>
 
             <p>
                 <label>Slope Angle (Degrees):</label><br>
                 <input type="number" name="slope_angle" min="0" max="90" required>
                 <!-- the required essentially checks if the field is left empty and shows an error message-->
             </p>
-            <!-- drop down for the slope aspect-->
+            <!-- drop down for the slope aspect might remove the ordinal directions later and just leave cardinal-->
             <p>
                 <label>Slope Aspect (Direction):</label><br>
                 <select name="slope_aspect">
                     <option value="N">North</option>
                     <option value="NE">Northeast</option>
                     <option value="E">East</option>
+                    <option value="SE">Southeast</option>
                     <option value="S">South</option>
+                    <option value="SW">Southwest</option>
                     <option value="W">West</option>
+                    <option value="NW">Northwest</option>
                 </select>
             </p>
+
+            <p>
+                <!-- including this in for now but might take out am unsure yet-->
+                <label>Terrain Familiarity:</label><br>
+                <select name="familiarity">
+                    <option value="regular">I ski here regularly</option>
+                    <option value="sometimes">I have skied here a few times</option>
+                    <option value="first_time">First time skiing this area</option>
+                </select>
+            </p>
+
             <p>
                 <!-- drop down for the group size-->
                 <label>Group Size:</label><br>
@@ -46,6 +64,14 @@
                     <option value="3-4">3-4</option>
                     <option value="5+">5+</option>
                 </select>
+            </p>
+            <!-- using a checklist format-->
+            <p>
+                <label><b>Safety Gear Checklist:</b></label><br>
+                <input type="checkbox" name="gear_transceiver" value="yes"> Transceiver<br>
+                <input type="checkbox" name="gear_probe" value="yes"> Probe<br>
+                <input type="checkbox" name="gear_shovel" value="yes"> Shovel<br>
+                <input type="checkbox" name="gear_airbag" value="yes"> Airbag
             </p>
             <button type="submit" class="btn-primary" style="border:none; cursor:pointer;">Run Risk Analysis</button>
         </form>
