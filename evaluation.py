@@ -43,3 +43,19 @@ def calculate_risk(data):
         return "No-Go", "red", "N/A", eaws_danger, "Automatic No-Go: Solo skiing is not allowed."
     elif eaws_danger == 5:
         return "No-Go", "red", "N/A", eaws_danger, "Automatic No-Go: EAWS Danger Level 5(Extreme)."
+
+    #Calculating natural factors(50% of overall score)
+    if 30 <= angle <= 45:
+        angle_score = 10.0  #Prime avalanche zone
+    elif angle > 45:
+        angle_score = 6.0
+    else:
+        angle_score = 3.0 #Still safer to have low slope than very high slope
+
+    if aspect in ["N", "NE", "E", "NW"]:
+        aspect_score = 8.0  # Areas in the Shade are colder lead to higher risk of avalanches(Northern Hemisphere)
+    else:
+        aspect_score = 3.0
+    # Combine natural variables and scale to 50% weighting
+    natural_raw_average = (angle_score + aspect_score + (eaws_danger * 2)) / 3.0
+    natural_component = natural_raw_average * 0.50
