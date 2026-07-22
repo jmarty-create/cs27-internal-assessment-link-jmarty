@@ -41,7 +41,7 @@ body {
 
 /* section for the background and slogan */
 .hero-container {
-    /* loads your  image file straight from internet */
+    /* loads image file straight from internet */
     background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
                 url('https://www.thomascrauwels.ch/wp-content/uploads/2020/10/bec-des-rosses-201804_dsc9125.jpg') no-repeat center center/cover;
 
