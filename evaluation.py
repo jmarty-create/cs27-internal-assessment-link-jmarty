@@ -9,5 +9,37 @@ def fetch_eaws_danger(location):
        return 1
 
 def calculate_risk(data):
-    #This is the function that will evaluate the inputs and give feedback but doesnt return anything at the moment
-    return None
+    #take out inputs on sections that the user fills in
+    location = data["location"]
+    angle = int(data["slope_angle"])
+    aspect = data["slope_aspect"]
+    familiarity = data["famliiarity"]
+    group_size = data["group_size"]
+
+    #assume intially all checkboxes are unchecke
+    #(am using these variables because is more organized than using data.get("gear") in rest of code)
+    has_transceiver = False
+    has_probe = False
+    has_shovel = False
+    has_airbag = False
+
+    # update to True if is ticked to "yes"
+    if data.get("gear_transceiver") == "yes":
+        has_transceiver = True
+    if data.get("gear_probe") == "yes":
+        has_probe = True
+    if data.get("gear_shovel") == "yes":
+        has_shovel = True
+    if data.get("gear_airbag") == "yes":
+        has_airbag = True
+
+    # avalanche danger from function above
+    eaws_danger = fetch_eaws_danger(location)
+
+    #the automatic hard stops that lead to immediate "No-go"
+    if has_transceiver == False:
+        return "No-Go", "red", "N/A", eaws_danger, "Automatic No-Go: Missing Transceiver!"
+    elif group_size == "1":
+        return "No-Go", "red", "N/A", eaws_danger, "Automatic No-Go: Solo skiing is not allowed."
+    elif eaws_danger == 5:
+        return "No-Go", "red", "N/A", eaws_danger, "Automatic No-Go: EAWS Danger Level 5(Extreme)."
