@@ -106,4 +106,4 @@ def calculate_risk(data):
         color = "green"
         reason = "Conditions and group preparations are within favorable safety parameters."
 
-    return verdict, color, total_risk, eaws_danger, reason
+    return verdict, color, round(total_risk,2), eaws_danger, reason
