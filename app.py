@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request
 from evaluation import calculate_risk
-from database import save_assessment
+from database import save_assessment,get_all_user_evaluations
 
 app = Flask(__name__)
 @app.route('/')
@@ -11,7 +11,6 @@ def home():
 @app.route('/evaluate')
 def evaluate():
     return render_template('evaluate.html')
-
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
@@ -27,6 +26,10 @@ def calculate():
 
     # render_template fills the html variables from the results and equates them to the python variable(left of equals is html and right is python that was calculated)
    return render_template('results.html',verdict=verdict,color=color,score=risk_score,eaws=eaws_danger,reason=reason)
+
+@app.route('/compare')
+def compare_page():
+    return render_template('compare.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

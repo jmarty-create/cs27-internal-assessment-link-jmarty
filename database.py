@@ -7,7 +7,7 @@ def initialize_database():
     # Users table
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY,
+            user_id INTEGER PRIMARY KEY,
             username TEXT,
             password TEXT
         )
@@ -15,10 +15,9 @@ def initialize_database():
     #Assesments table
     create_assessments_table = """
         CREATE TABLE IF NOT EXISTS assessments (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            assessment_id INTEGER PRIMARY KEY,
             user_id INTEGER,
             location TEXT,
-            slope_angle INTEGER,
             eaws_danger INTEGER,
             risk_score REAL,
             verdict TEXT,
@@ -47,5 +46,35 @@ def save_assessment(user_id, location, eaws_danger, risk_score, verdict, color, 
     connection.commit()
     connection.close()
 
+def get_all_user_evaluations(user_id):
+    connection = sqlite3.connect("slopeguard.db")
+    cursor = connection.cursor()
+    # Query to get id, location, risk_score, and verdict
+    cursor.execute("""
+        SELECT assessment_id, location, risk_score, verdict 
+        FROM assessments 
+        WHERE user_id = :user_id
+    """, {"user_id": user_id})
+    # fetchall takes all matching rows as a list
+    all_evaluations = cursor.fetchall()
+    connection.close()
+    return all_evaluations
+print(get_all_user_evaluations(1))
+
+def get_single_evaluation(assessment_id):
+    connection = sqlite3.connect("slopeguard.db")
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        SELECT risk_score, location 
+        FROM assessments 
+        WHERE assessment_id = :assessment_id
+    """, {"assessment_id": assessment_id})
+    #fetchone takes only one row
+    single_evaluation = cursor.fetchone()
+    connection.close()
+    return single_evaluation
+print(get_single_evaluation(1))
+print(get_single_evaluation(2))
 if __name__ == "__main__":
     initialize_database()
