@@ -59,7 +59,6 @@ def get_all_user_evaluations(user_id):
     all_evaluations = cursor.fetchall()
     connection.close()
     return all_evaluations
-print(get_all_user_evaluations(1))
 
 def get_single_evaluation(assessment_id):
     connection = sqlite3.connect("slopeguard.db")
@@ -74,7 +73,5 @@ def get_single_evaluation(assessment_id):
     single_evaluation = cursor.fetchone()
     connection.close()
     return single_evaluation
-print(get_single_evaluation(1))
-print(get_single_evaluation(2))
 if __name__ == "__main__":
     initialize_database()

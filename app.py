@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from evaluation import calculate_risk
-from database import save_assessment,get_all_user_evaluations
+from database import save_assessment,get_all_user_evaluations,get_single_evaluation
 
 app = Flask(__name__)
 @app.route('/')
@@ -12,7 +12,7 @@ def home():
 def evaluate():
     return render_template('evaluate.html')
 
-@app.route('/calculate', methods=['POST'])
+@app.route('/calculate', methods=["POST"])
 def calculate():
    # here flask takes everything the user typed or selected in <form> using request.form
    verdict, color, risk_score, eaws_danger, reason = calculate_risk(request.form)
@@ -27,9 +27,31 @@ def calculate():
     # render_template fills the html variables from the results and equates them to the python variable(left of equals is html and right is python that was calculated)
    return render_template('results.html',verdict=verdict,color=color,score=risk_score,eaws=eaws_danger,reason=reason)
 
-@app.route('/compare')
-def compare_page():
-    return render_template('compare.html')
+@app.route('/compare', methods=["GET", "POST"])
+def compare():
+    user_id = 1  # Placeholder
+
+    #taking the list of evaluations so the dropdown works
+    past_evaluations = get_all_user_evaluations(user_id)
+    result = None
+    #If the user clicked compare(POST request)
+    if request.method == "POST":
+        past_id = request.form.get("past_id")
+        #Get past assessment
+        past_eval = get_single_evaluation(past_id)
+
+        #Get the latest assessment(the last item in the list)
+        latest_eval = past_evaluations[-1]
+        past_score = past_eval[0]
+        latest_score = latest_eval[2]
+        if latest_score > past_score:
+            result = f"Your last check ({latest_score}) is more dangerous than assessment number {past_id}."
+        elif latest_score < past_score:
+            result = f"Your last check ({latest_score}) is less dangerous than assessment number {past_id}."
+        else:
+            result = f"Your last check is equally as dangerous as assessment number{past_id}."
+
+    return render_template('compare.html', past_evaluations=past_evaluations, result=result)
 
 if __name__ == '__main__':
     app.run(debug=True)

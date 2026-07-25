@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Compare Assesments</title>
+    <title>Compare Assessments</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <h1>Compare Two Assessments</h1>
+
+    <header class="navbar">
+        <div class="logo-area">
+            <span class="logo-text">SlopeGuard Comparison</span>
+        </div>
+        <div class="nav-buttons">
+            <!-- reroutes to the home page -->
+            <a href="/" class="btn-secondary">Back Home</a>
+        </div>
+    </header>
+
+    <main  style="padding: 40px; max-width: 500px; margin: 30px;">
+        <h1>Compare Past Assessments</h1>
+        <form action="/compare" method="POST">
+            <label for="past_id">Select an assessment to compare:</label>
+                <select name="past_id" id="past_id" required>
+                    <!-- for loop in order to show all previous evaluations-->
+                    {% for eval in past_evaluations %}
+                        <option value="{{ eval[0] }}">
+                            Assessment #{{ eval[0] }} - {{ eval[1] }}
+                        </option>
+                    {% endfor %}
+                </select>
+            <br><br>
+            <button type="submit" class="btn-primary">Compare</button>
+        </form>
+        {% if result %}
+            <hr>
+            <div class="result-box">
+                <h2>Comparison Result</h2>
+                <p>{{ result }}</p>
+            </div>
+        {% endif %}
+    </main>
+
 </body>
 </html>
