@@ -73,5 +73,26 @@ def get_single_evaluation(assessment_id):
     single_evaluation = cursor.fetchone()
     connection.close()
     return single_evaluation
+
+def create_user(username, password):
+    #Check that both fields were actually filled out
+    if username and password:
+        connection = sqlite3.connect("slopeguard.db")
+        cursor = connection.cursor()
+
+        #Insert data in users table
+        cursor.execute("""
+            INSERT INTO users (username, password) 
+            VALUES (?, ?)
+        """, (username, password))
+
+        connection.commit()
+        connection.close()
+        return True
+    else:
+        #If username or password was blank(might change later to reroute to do a different action)
+        return False
+
+create_user("bob123","password456")
 if __name__ == "__main__":
     initialize_database()

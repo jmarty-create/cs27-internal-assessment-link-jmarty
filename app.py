@@ -53,5 +53,9 @@ def compare():
 
     return render_template('compare.html', past_evaluations=past_evaluations, result=result)
 
+@app.route('/register', methods=["GET", "POST"])
+def register():
+    return render_template('register.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
