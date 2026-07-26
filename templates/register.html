@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Create Account</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <header class="navbar">
+        <div class="logo-area">
+            <span class="logo-text">SlopeGuard</span>
+        </div>
+        <div class="nav-buttons">
+            <a href="/" class="btn-secondary">Back Home</a>
+        </div>
+    </header>
 
+    <main class="container" style="padding: 20px; max-width: 500px; margin: 0 auto;">
+        <h1>Create an Account</h1>
+        <form action="/register" method="POST">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" required>
+            <br><br>
+            <label for="password">Password:</label><br>
+            <!--using the password type allows for the text to be hidden when typing it-->
+            <input type="password" id="password" name="password" required>
+            <br><br>
+            <button type="submit" class="btn-primary">Register</button>
+        </form>
+    </main>
 </body>
 </html>

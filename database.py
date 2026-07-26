@@ -89,10 +89,5 @@ def create_user(username, password):
         connection.commit()
         connection.close()
         return True
-    else:
-        #If username or password was blank(might change later to reroute to do a different action)
-        return False
-
-create_user("bob123","password456")
 if __name__ == "__main__":
     initialize_database()

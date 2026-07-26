@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from evaluation import calculate_risk
-from database import save_assessment,get_all_user_evaluations,get_single_evaluation
+from database import save_assessment,get_all_user_evaluations,get_single_evaluation,create_user
 
 app = Flask(__name__)
 @app.route('/')
@@ -55,6 +55,11 @@ def compare():
 
 @app.route('/register', methods=["GET", "POST"])
 def register():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        #add to database
+        create_user(username, password)
     return render_template('register.html')
 
 if __name__ == '__main__':
