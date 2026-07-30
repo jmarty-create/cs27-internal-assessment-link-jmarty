@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request,session,redirect
-from werkzeug.utils import redirect
 from evaluation import calculate_risk
 from database import save_assessment,get_all_user_evaluations,get_single_evaluation,create_user,verify_user
+from loc_risk import get_eaws_danger_level
 
 app = Flask(__name__)
 app.secret_key = "slopeguard_secret_key_123" #this is what allows me to use the "session" part in flask and helps me manage the log ins
@@ -18,10 +18,8 @@ def evaluate():
 def calculate():
     if 'user_id' not in session:
         return redirect('/login')
-
     #Get the real logged-in user's ID from session
     user_id = session['user_id']
-
    # here flask takes everything the user typed or selected in <form> using request.form
     verdict, color, risk_score, eaws_danger, reason = calculate_risk(request.form)
     if risk_score == "N/A": #In case one of the hard stops is hit where there is no score given

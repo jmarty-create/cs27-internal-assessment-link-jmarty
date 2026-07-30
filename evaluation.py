@@ -1,13 +1,4 @@
-def fetch_eaws_danger(location):
-   #Looks up regional avalanche danger level (1 to 5) normally but am using these if statements to test and palcehold for now.
-   loc = location.lower().strip()
-   if "thyon" in loc:
-       return 5
-   elif "verbier" in loc:
-       return 3
-   elif "champery" in loc:
-       return 1
-
+from loc_risk import get_eaws_danger_level
 def calculate_risk(data):
     #take out inputs on sections that the user fills in
     location = data["location"]
@@ -34,7 +25,7 @@ def calculate_risk(data):
         has_airbag = True
 
     # avalanche danger from function above
-    eaws_danger = fetch_eaws_danger(location)
+    eaws_danger = get_eaws_danger_level(location)
 
     #the automatic hard stops that lead to immediate "No-go"
     if has_transceiver == False:
