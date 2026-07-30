@@ -1,39 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SlopeGuard - Home</title>
+    <title>SlopeGuard Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-
     <header class="navbar">
         <div class="logo-area">
             <img src="{{ url_for('static', filename='logo.png') }}" alt="SlopeGuard Logo" class="logo-img">
             <span class="logo-text">The World's Best Off Piste Ski App </span>
         </div>
         <div class="nav-buttons">
-            <!-- the href will link to the other pages for the website but is empty for now-->
-            <a href="" class="btn-secondary">About Us</a>
-            <a href="" class="btn-primary">Sign In</a>
+            <a href="/login" class="btn-primary">Sign In</a>
             <a href="/register" class="btn-primary"> Sign Up</a>
         </div>
     </header>
-
    <main>
         <div class="hero-container">
-
             <div class="headline-badge">
                 <h1>Assess. Decide. Ride.</h1>
             </div>
-
             <div class="bubbles-container">
-
                 <div class="action-bubble">
                     <h2>Evaluate Conditions</h2>
                     <p>We propose a detailed analysis of the situation to ski safely</p>
                     <a href="/evaluate" class="bubble-link">Start Now</a>
                 </div>
-
                 <div class="action-bubble">
                     <h2>Compare Conditions</h2>
                     <p>With Slopeguard, compare your recent evaluation to previous ones.</p>

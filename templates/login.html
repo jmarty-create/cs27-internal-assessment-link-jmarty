@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Log in</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo-area">
+            <span class="logo-text">SlopeGuard Login</span>
+        </div>
+        <div class="nav-buttons">
+            <!-- reroutes to the home page here-->
+            <a href="/" class="btn-secondary">Back Home</a>
+        </div>
+    </header>
+    <main style="padding: 40px; max-width: 500px; margin: 0 auto;">
+    <h1>Log In</h1>
+    <form action="/login" method="POST">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+        <button type="submit">Log In</button>
+    </form>
+</body>
+</html>

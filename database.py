@@ -89,5 +89,21 @@ def create_user(username, password):
         connection.commit()
         connection.close()
         return True
+
+def verify_user(username, password):
+    connection = sqlite3.connect("slopeguard.db")
+    cursor = connection.cursor()
+    #SQL to isolate the specific user
+    cursor.execute("""
+        SELECT user_id FROM users 
+        WHERE username = ? AND password = ?
+    """, (username, password))
+    user = cursor.fetchone()
+    connection.close()
+
+    if user:
+        return user[0]  # Returns user_id
+    return None
+
 if __name__ == "__main__":
     initialize_database()
