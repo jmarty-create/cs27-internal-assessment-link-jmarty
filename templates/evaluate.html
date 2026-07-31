@@ -18,19 +18,23 @@
 
     <main style="padding: 40px; max-width: 500px; margin: 0 auto;">
         <h2>Enter Details</h2>
-
         <form action="/calculate" method="POST">
-            <p>
-                <label>Resort / Region Location:</label><br>
-                <input type="text" name="location" placeholder="e.g. Verbier, Switzerland" required>
-            </p>
-
-            <p>
+        <p>
+                <label for="location">Region / Area Location:</label><br>
+                <select id="location" name="location" required style="padding: 8px; width: 320px;">
+                    <option value="Lower Valais">Valais / Wallis</option>
+                    <option value="Upper Valais">Valais / Wallis</option>
+                    <option value="Graubunden">Graubünden / Grisons (Engadin, Davos, St. Moritz)</option>
+                    <option value="Northern Alps">Northern Alps (Bernese Oberland & Central CH)</option>
+                    <option value="Eastern Alps">Eastern Alps (Glarus, St. Gallen, Alpstein)</option>
+                    <option value="Gotthard">Central Alps / Gotthard Region (Andermatt, Uri)</option>
+                    <option value="Ticino">Ticino / Tessin (Southern Alps)</option>
+                    <option value="Jura">Jura Mountains</option>
+                </select>
+        </p>
                 <label>Slope Angle (Degrees):</label><br>
                 <input type="number" name="slope_angle" min="0" max="90" required>
                 <!-- the required essentially checks if the field is left empty and shows an error message-->
-            </p>
-            <!-- drop down for the slope aspect might remove the ordinal directions later and just leave cardinal-->
             <p>
                 <label>Slope Aspect (Direction):</label><br>
                 <select name="slope_aspect">

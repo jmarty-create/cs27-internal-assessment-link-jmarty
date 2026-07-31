@@ -25,15 +25,15 @@ def calculate_risk(data):
         has_airbag = True
 
     # avalanche danger from function above
-    eaws_danger = get_eaws_danger_level(location)
+        eaws_danger = get_eaws_danger_level(location)
 
     #the automatic hard stops that lead to immediate "No-go"
     if has_transceiver == False:
         return "No-Go", "red", "N/A", eaws_danger, "Automatic No-Go: Missing Transceiver!"
     elif group_size == "1":
         return "No-Go", "red", "N/A", eaws_danger, "Automatic No-Go: Solo skiing is not allowed."
-    elif eaws_danger == 5:
-        return "No-Go", "red", "N/A", eaws_danger, "Automatic No-Go: EAWS Danger Level 5(Extreme)."
+    elif eaws_danger == 5 or eaws_danger == 4:
+        return "No-Go", "red", "N/A", eaws_danger, "Automatic No-Go: EAWS Danger Level Extreme."
 
     # Calculating natural factors (50% of overall score)
     if 35 <= angle <= 40:
