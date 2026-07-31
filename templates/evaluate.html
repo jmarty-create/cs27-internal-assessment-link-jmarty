@@ -19,19 +19,39 @@
     <main style="padding: 40px; max-width: 500px; margin: 0 auto;">
         <h2>Enter Details</h2>
         <form action="/calculate" method="POST">
+            <p>
+            <label for="eaws_mode">Avalanche Rating Mode:</label><br>
+                <select id="eaws_mode" name="eaws_mode" style="padding: 8px; width: 320px;">
+                    <option value="auto" selected>Auto-fetch live reading</option>
+                    <option value="manual">Enter EAWS rating manually</option>
+                </select>
+            </p>
         <p>
                 <label for="location">Region / Area Location:</label><br>
                 <select id="location" name="location" required style="padding: 8px; width: 320px;">
-                    <option value="Lower Valais">Valais / Wallis</option>
-                    <option value="Upper Valais">Valais / Wallis</option>
+                    <option value="Lower Valais"> Haut Valais / Oberallis</option>
+                    <option value="Upper Valais">Bas Valais / Untervallis</option>
                     <option value="Graubunden">Graubünden / Grisons (Engadin, Davos, St. Moritz)</option>
-                    <option value="Northern Alps">Northern Alps (Bernese Oberland & Central CH)</option>
+                    <option value="Northern Alps">Northern Alps (Bernese Oberland/Central CH)</option>
                     <option value="Eastern Alps">Eastern Alps (Glarus, St. Gallen, Alpstein)</option>
                     <option value="Gotthard">Central Alps / Gotthard Region (Andermatt, Uri)</option>
                     <option value="Ticino">Ticino / Tessin (Southern Alps)</option>
                     <option value="Jura">Jura Mountains</option>
                 </select>
         </p>
+
+
+            <p>
+                <label for="manual_eaws">Manual EAWS Level:</label><br>
+                <select id="manual_eaws" name="manual_eaws" style="padding: 8px; width: 320px;">
+                    <option value="">-- Select EAWS Level --</option>
+                    <option value="1">Level 1 - Low (Green)</option>
+                    <option value="2">Level 2 - Moderate (Yellow)</option>
+                    <option value="3">Level 3 - Considerable (Orange)</option>
+                    <option value="4">Level 4 - High (Red)</option>
+                    <option value="5">Level 5 - Very High (Black)</option>
+                </select>
+            </p>
                 <label>Slope Angle (Degrees):</label><br>
                 <input type="number" name="slope_angle" min="0" max="90" required>
                 <!-- the required essentially checks if the field is left empty and shows an error message-->

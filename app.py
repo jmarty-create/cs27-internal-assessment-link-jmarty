@@ -20,7 +20,28 @@ def calculate():
         return redirect('/login')
     #Get the real logged-in user's ID from session
     user_id = session['user_id']
-   # here flask takes everything the user typed or selected in <form> using request.form
+    ""
+    eaws_mode = request.form.get("eaws_mode", "auto")
+    manual_value = request.form.get("manual_eaws")
+    location = request.form.get("location")
+
+    eaws_danger = None
+    #User selects manual mode
+    if eaws_mode == "manual" and manual_value:
+        if manual_value.isdigit():
+            eaws_danger = int(manual_value)
+
+        #If Auto mode selected or manual was empty do API lookup
+    if eaws_danger is None:
+        eaws_danger = get_eaws_danger_level(location)
+
+        # fallback if API lookup is not working and no manual selection was made
+    if eaws_danger is None:
+        if manual_value and manual_value.isdigit():
+            eaws_danger = int(manual_value)
+        else:
+            eaws_danger = 1  # Default fallback for now but will need to do somthing about later
+    #here flask takes everything the user typed or selected in <form> using request.form
     verdict, color, risk_score, eaws_danger, reason = calculate_risk(request.form)
     if risk_score == "N/A": #In case one of the hard stops is hit where there is no score given
         numeric_score = 10.0

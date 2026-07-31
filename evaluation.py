@@ -13,8 +13,7 @@ def calculate_risk(data):
     has_probe = False
     has_shovel = False
     has_airbag = False
-
-    # update to True if is ticked to "yes"
+    # update to true if is ticked to "yes"
     if data.get("gear_transceiver") == "yes":
         has_transceiver = True
     if data.get("gear_probe") == "yes":
@@ -24,15 +23,32 @@ def calculate_risk(data):
     if data.get("gear_airbag") == "yes":
         has_airbag = True
 
-    # avalanche danger from function above
+    #avalanche danger
+    eaws_mode = data.get("eaws_mode", "auto")
+    manual_eaws = data.get("manual_eaws")
+    eaws_danger = None
+
+    #checking for manual selection
+    if eaws_mode == "manual" and manual_eaws:
+        eaws_danger = int(manual_eaws)
+
+    #Check API lookup
+    if eaws_danger is None and location:
         eaws_danger = get_eaws_danger_level(location)
+
+    #making sure eaws_danger is an integer to avoid error
+    if eaws_danger is None:
+        if manual_eaws and str(manual_eaws).isdigit():
+            eaws_danger = int(manual_eaws)
+        else:
+            eaws_danger = 1  #default fallback integer
 
     #the automatic hard stops that lead to immediate "No-go"
     if has_transceiver == False:
         return "No-Go", "red", "N/A", eaws_danger, "Automatic No-Go: Missing Transceiver!"
     elif group_size == "1":
         return "No-Go", "red", "N/A", eaws_danger, "Automatic No-Go: Solo skiing is not allowed."
-    elif eaws_danger == 5 or eaws_danger == 4:
+    elif eaws_danger >= 4:
         return "No-Go", "red", "N/A", eaws_danger, "Automatic No-Go: EAWS Danger Level Extreme."
 
     # Calculating natural factors (50% of overall score)
@@ -41,7 +57,7 @@ def calculate_risk(data):
     elif (30 <= angle < 35) or (41 <= angle <= 45):
         angle_score = 8.0  # High risk avalanche terrain
     elif angle > 45:
-        angle_score = 5.0  # Very steep but snow doesnt pile up as much to cause avalanches
+        angle_score = 5.0  # Very steep but snow doesn't pile up as much to cause avalanches
     else:
         angle_score = 2.0  # Less steep area so lower risk
     if aspect == "N" or aspect =="NE" or aspect == "E" or aspect == "NW":
@@ -52,7 +68,7 @@ def calculate_risk(data):
     natural_raw_average = (angle_score + aspect_score + (eaws_danger * 2)) / 3.0
     natural_component = natural_raw_average * 0.50
 
-    #Gear factors (25% of overall score) ---
+    #Gear factors (25% of overall score)
     # Start at maximum gear risk (10) and subtract points for each item
     gear_risk = 10.0
     if has_shovel:
@@ -65,7 +81,7 @@ def calculate_risk(data):
     gear_risk -= 3.0
     gear_component = gear_risk * 0.25
 
-    # Group/human factors (25% of overall score) ---
+    # Group/human factors (25% of overall score)
     if group_size == "3-4":
         human_score = 2.0  # Optimal group size
     elif group_size == "2":
@@ -73,7 +89,7 @@ def calculate_risk(data):
     else:
         human_score = 7.0  # 5+ group size is too much pressure on snow
 
-    # Adjust human risk based on terrain familiarity
+    #Adjust human risk based on terrain familiarity
     if familiarity == "first_time":
         human_score += 2.0
     elif familiarity == "sometimes":
