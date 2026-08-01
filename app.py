@@ -16,6 +16,7 @@ def evaluate():
 
 @app.route('/calculate', methods=["POST"])
 def calculate():
+    #This bit prevents the user from creating an evaluation without being logged in which helps database
     if 'user_id' not in session:
         return redirect('/login')
     #Get the real logged-in user's ID from session
