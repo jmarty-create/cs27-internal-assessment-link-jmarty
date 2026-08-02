@@ -20,10 +20,10 @@
         <h2>Enter Details</h2>
         <form action="/calculate" method="POST">
             <p>
-            <label for="eaws_mode">Avalanche Rating Mode:</label><br>
+            <label for="eaws_mode">Avalanche Rating:</label><br>
                 <select id="eaws_mode" name="eaws_mode" style="padding: 8px; width: 320px;">
                     <option value="auto" selected>Auto-fetch live reading</option>
-                    <option value="manual">Enter EAWS rating manually</option>
+                    <option value="manual">Manual Input</option>
                 </select>
             </p>
         <p>
@@ -42,7 +42,7 @@
 
 
             <p>
-                <label for="manual_eaws">Manual EAWS Level:</label><br>
+                <label for="manual_eaws">Manual Avalanche Danger Level(Optional):</label><br>
                 <select id="manual_eaws" name="manual_eaws" style="padding: 8px; width: 320px;">
                     <option value="">-- Select EAWS Level --</option>
                     <option value="1">Level 1 - Low (Green)</option>

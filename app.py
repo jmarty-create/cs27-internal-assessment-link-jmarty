@@ -12,20 +12,19 @@ def home():
 
 @app.route('/evaluate')
 def evaluate():
-    return render_template('evaluate.html')
-
-@app.route('/calculate', methods=["POST"])
-def calculate():
-    #This bit prevents the user from creating an evaluation without being logged in which helps database
+    # This bit prevents the user from creating an evaluation without being logged in which helps database
     if 'user_id' not in session:
         return redirect('/login')
     #Get the real logged-in user's ID from session
     user_id = session['user_id']
-    ""
+    return render_template('evaluate.html')
+
+@app.route('/calculate', methods=["POST"])
+def calculate():
     eaws_mode = request.form.get("eaws_mode", "auto")
     manual_value = request.form.get("manual_eaws")
     location = request.form.get("location")
-
+    user_id = session.get('user_id')
     eaws_danger = None
     #User selects manual mode
     if eaws_mode == "manual" and manual_value:
@@ -48,6 +47,7 @@ def calculate():
         numeric_score = 10.0
     else:
         numeric_score = float(risk_score)
+
         #This line takes all the assesment info from user details and html inputs and runs the saving function from the database file
     save_assessment(user_id=user_id, location=request.form["location"],eaws_danger=eaws_danger,risk_score=numeric_score,verdict=verdict,color=color,reason=reason)
 
