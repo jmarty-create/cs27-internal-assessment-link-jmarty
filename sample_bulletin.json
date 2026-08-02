@@ -1,0 +1,14 @@
+{
+  "bulletins": [
+    {
+      "bulletinID": "CH-SLF-MOCK-01",
+      "publicationTime": "2026-08-02T08:00:00Z",
+      "regions": ["lower valais", "upper valais", "graubunden", "northern alps", "eastern alps", "gotthard", "ticino", "jura"],
+      "dangerRatings": [
+        {
+          "mainValue": "3"
+        }
+      ]
+    }
+  ]
+}
