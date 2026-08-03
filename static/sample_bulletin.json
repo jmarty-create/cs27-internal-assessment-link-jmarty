@@ -1,0 +1,76 @@
+{
+  "bulletins": [
+    {
+      "bulletinID": "CH-SLF-01",
+      "regions": ["lower valais"],
+      "dangerRatings": [
+        {
+          "mainValue": "5"
+        }
+      ]
+    },
+    {
+      "bulletinID": "CH-SLF-02",
+      "regions": ["upper valais"],
+      "dangerRatings": [
+        {
+          "mainValue": "4"
+        }
+      ]
+    },
+    {
+      "bulletinID": "CH-SLF-03",
+      "regions": ["graubunden"],
+      "dangerRatings": [
+        {
+          "mainValue": "3"
+        }
+      ]
+    },
+    {
+      "bulletinID": "CH-SLF-04",
+      "regions": ["northern alps"],
+      "dangerRatings": [
+        {
+          "mainValue": "2"
+        }
+      ]
+    },
+    {
+      "bulletinID": "CH-SLF-05",
+      "regions": ["eastern alps"],
+      "dangerRatings": [
+        {
+          "mainValue": "3"
+        }
+      ]
+    },
+    {
+      "bulletinID": "CH-SLF-06",
+      "regions": ["gotthard"],
+      "dangerRatings": [
+        {
+          "mainValue": "4"
+        }
+      ]
+    },
+    {
+      "bulletinID": "CH-SLF-07",
+      "regions": ["ticino"],
+      "dangerRatings": [
+        {
+          "mainValue": "1"
+        }
+      ]
+    },
+    {
+      "bulletinID": "CH-SLF-08",
+      "regions": ["jura"],
+      "dangerRatings": [
+        {
+          "mainValue": "1"
+        }
+      ]
+    }
+  ]
+}
