@@ -52,7 +52,7 @@ def calculate():
     save_assessment(user_id=user_id, location=request.form["location"],eaws_danger=eaws_danger,risk_score=numeric_score,verdict=verdict,color=color,reason=reason)
 
     # render_template fills the html variables from the results and equates them to the python variable(left of equals is html and right is python that was calculated)
-    return render_template('results.html',verdict=verdict,color=color,score=risk_score,eaws=eaws_danger,reason=reason)
+    return render_template('results.html',verdict=verdict,color=color,risk_score=risk_score,eaws_danger=eaws_danger,reason=reason)
 
 @app.route('/compare', methods=["GET", "POST"])
 def compare():

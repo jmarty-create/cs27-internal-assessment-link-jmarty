@@ -1,19 +1,51 @@
 <!DOCTYPE html>
-<!-- page where my results and feedback will be shown-->
 <html>
+<head>
+    <title>SlopeGuard Evaluation Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
 <body>
+    <header class="navbar">
+        <div class="logo-area">
+            <a href="/">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="SlopeGuard Logo" class="logo-img">
+            </a>
+            <span class="logo-text"> The World's Best Off Piste Ski App</span>
+        </div>
+        <div class="nav-buttons">
+            {% if session.get('user_id') %}
+                <a href="/logout" class="btn-primary">Sign Out</a>
+            {% else %}
+                <a href="/login" class="btn-primary">Sign In</a>
+                <a href="/register" class="btn-primary">Sign Up</a>
+            {% endif %}
+        </div>
+    </header>
 
-    <main style="padding: 40px; text-align: center; max-width: 600px; margin: 0 auto;">
-        <h2>Assessment Complete</h2>
-        <!-- all the curly brackets here will be filled in with the variables from app.py-->
-        <p><b>Regional EAWS Danger Level:</b> {{ eaws }}/5</p>
-        <p><b>Calculated Risk Score:</b> {{ score }}</p>
-        <h1 style="color: {{ color }}; font-size: 42px;">Recommendation: {{ verdict }}</h1>
-        <p style="color: #555;"><i>{{ reason }}</i></p>
+    <main class="results-container">
+        <div class="results-card" style="--verdict-color: {{ color }};">
 
-        <br><br>
-        <a href="/evaluate" class="btn-primary">Run Another Assessment</a>
+            <div class="results-header">
+                <h1>Assessment Results</h1>
+                <div class="verdict-badge">{{ verdict }}</div>
+            </div>
+            <!-- all the curly brackets here will be filled in with the variables from app.py-->
+            <div class="results-details">
+                <p><strong>Regional EAWS Danger Level:</strong> Level {{ eaws_danger }}</p>
+                <p><strong>Calculated Risk Score:</strong> {{ risk_score }}</p>
+            </div>
+
+            <div class="analysis-box">
+                <strong>Recomendation:</strong>
+                <p>{{ reason }}</p>
+            </div>
+
+            <div class="action-buttons">
+                <a href="/" class="btn-secondary">Home</a>
+                <a href="/evaluate" class="btn-primary">Run Another Assessment</a>
+            </div>
+
+        </div>
     </main>
-
 </body>
 </html>
