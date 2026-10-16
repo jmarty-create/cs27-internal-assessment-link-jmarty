@@ -25,34 +25,33 @@ def calculate():
     manual_value = request.form.get("manual_eaws")
     location = request.form.get("location")
     user_id = session.get('user_id')
-    eaws_danger = None
-    #User selects manual mode
-    if eaws_mode == "manual" and manual_value:
-        if manual_value.isdigit():
-            eaws_danger = int(manual_value)
-
-        #If Auto mode selected or manual was empty do API lookup
-    if eaws_danger is None:
-        eaws_danger = get_eaws_danger_level(location)
-
-        # fallback if API lookup is not working and no manual selection was made
-    if eaws_danger is None:
-        if manual_value and manual_value.isdigit():
+    # User selects manual mode
+    if eaws_mode == "manual":
+        if manual_value in ["1", "2", "3", "4", "5"]:
             eaws_danger = int(manual_value)
         else:
-            eaws_danger = 1  # Default fallback for now but will need to do somthing about later
-    #here flask takes everything the user typed or selected in <form> using request.form
-    verdict, color, risk_score, eaws_danger, reason = calculate_risk(request.form)
-    if risk_score == "N/A": #In case one of the hard stops is hit where there is no score given
+            return render_template('evaluate.html',error="Please select a manual danger level.",manual_required=True)
+    # User selects automatic mode
+    else:
+        eaws_danger = get_eaws_danger_level(location)
+
+        # If API fails, force manual input
+        if eaws_danger is None:
+            return render_template('evaluate.html',error="API unavailable. Please enter the danger level manually.",manual_required=True)
+    # Add the validated danger level to the assessment inputs
+    data = request.form.to_dict()
+    data["eaws_danger"] = eaws_danger
+    # Calculate the risk using the validated inputs
+    verdict, color, risk_score, eaws_danger, reason = calculate_risk(data)
+
+    if risk_score == "N/A":
         numeric_score = 10.0
     else:
         numeric_score = float(risk_score)
-
-        #This line takes all the assesment info from user details and html inputs and runs the saving function from the database file
-    save_assessment(user_id=user_id, location=request.form["location"],eaws_danger=eaws_danger,risk_score=numeric_score,verdict=verdict,color=color,reason=reason)
-
-    # render_template fills the html variables from the results and equates them to the python variable(left of equals is html and right is python that was calculated)
-    return render_template('results.html',verdict=verdict,color=color,risk_score=risk_score,eaws_danger=eaws_danger,reason=reason)
+    # Save the assessment to the database
+    save_assessment(user_id=user_id, location=location,eaws_danger=eaws_danger, risk_score=numeric_score,verdict=verdict, color=color, reason=reason)
+    #displaying the results
+    return render_template('results.html', verdict=verdict,color=color, risk_score=risk_score, eaws_danger=eaws_danger, reason=reason)
 
 @app.route('/compare', methods=["GET", "POST"])
 def compare():
@@ -78,11 +77,11 @@ def compare():
             past_score = past_eval[0]
             latest_score = latest_eval[2]
             if latest_score > past_score:
-                result = f"Your last check ({latest_score}) is more dangerous than assessment number {past_id}."
+                result = f"Your last check ({latest_score}) is more dangerous than assessment number {past_id}. Take this into consideration and ski safely"
             elif latest_score < past_score:
-                result = f"Your last check ({latest_score}) is less dangerous than assessment number {past_id}."
+                result = f"Your last check ({latest_score}) is less dangerous than assessment number {past_id}. Take this into consideration and ski safely"
             else:
-                result = f"Your last check is equally as dangerous as assessment number {past_id}."
+                result = f"Your last check is equally as dangerous as assessment number {past_id}. Take this into consideration and ski safely"
 
     return render_template('compare.html', past_evaluations=past_evaluations, result=result)
 

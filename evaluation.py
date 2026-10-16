@@ -23,27 +23,10 @@ def calculate_risk(data):
     if data.get("gear_airbag") == "yes":
         has_airbag = True
 
-    #avalanche danger
-    eaws_mode = data.get("eaws_mode", "auto")
-    manual_eaws = data.get("manual_eaws")
-    eaws_danger = None
+    #avalanche danger has already been checked in app.py
+    eaws_danger = int(data["eaws_danger"])
 
-    #checking for manual selection
-    if eaws_mode == "manual" and manual_eaws:
-        eaws_danger = int(manual_eaws)
-
-    #Check API lookup
-    if eaws_danger is None and location:
-        eaws_danger = get_eaws_danger_level(location)
-
-    #making sure eaws_danger is an integer to avoid error
-    if eaws_danger is None:
-        if manual_eaws and str(manual_eaws).isdigit():
-            eaws_danger = int(manual_eaws)
-        else:
-            eaws_danger = 1  #default fallback integer
-
-    #the automatic hard stops that lead to immediate "No-go"
+    # the automatic hard stops that lead to immediate "No-go"
     if has_transceiver == False:
         return "No-Go", "red", "N/A", eaws_danger, "Automatic No-Go: Missing Transceiver!"
     elif group_size == "1":
