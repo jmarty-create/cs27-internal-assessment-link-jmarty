@@ -41,7 +41,7 @@ def calculate():
     # Add the validated danger level to the assessment inputs
     data = request.form.to_dict()
     data["eaws_danger"] = eaws_danger
-    # Calculate the risk using the validated inputs
+    #calculate the risk using the validated inputs
     verdict, color, risk_score, eaws_danger, reason = calculate_risk(data)
 
     if risk_score == "N/A":

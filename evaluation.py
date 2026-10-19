@@ -34,7 +34,7 @@ def calculate_risk(data):
     elif eaws_danger >= 4:
         return "No-Go", "red", "N/A", eaws_danger, "Automatic No-Go: EAWS Danger Level Extreme."
 
-    # Calculating natural factors (50% of overall score)
+    # Calculating natural factors(50% of overall score)
     if 35 <= angle <= 40:
         angle_score = 10.0  #Highest number of avalanches
     elif (30 <= angle < 35) or (41 <= angle <= 45):
