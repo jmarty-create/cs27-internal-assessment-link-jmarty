@@ -11,8 +11,13 @@
             <span class="logo-text">| The World's Best Off Piste Ski App </span>
         </div>
         <div class="nav-buttons">
-            <a href="/login" class="btn-primary">Sign In</a>
-            <a href="/register" class="btn-primary"> Sign Up</a>
+            {% if session.get('user_id') %}
+                <span>{{ session.get('username')}}</span>
+                <a href="/logout" class="btn-primary">Sign Out</a>
+            {% else %}
+                <a href="/login" class="btn-primary">Sign In</a>
+                <a href="/register" class="btn-primary">Sign Up</a>
+            {% endif %}
         </div>
     </header>
    <main>

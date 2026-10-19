@@ -54,6 +54,7 @@ def get_all_user_evaluations(user_id):
         SELECT assessment_id, location, risk_score, verdict 
         FROM assessments 
         WHERE user_id = :user_id
+        ORDER BY assessment_id ASC
     """, {"user_id": user_id})
     # fetchall takes all matching rows as a list
     all_evaluations = cursor.fetchall()

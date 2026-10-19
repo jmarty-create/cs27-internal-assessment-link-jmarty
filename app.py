@@ -105,6 +105,7 @@ def login():
 
         if user_id:
             session['user_id'] = user_id  #Save user session
+            session['username'] = username #Store username to display
             return redirect('/')
         else:
             return "Invalid username or password! Please try again."
