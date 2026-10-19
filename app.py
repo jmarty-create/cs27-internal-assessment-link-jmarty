@@ -19,6 +19,7 @@ def evaluate():
     user_id = session['user_id']
     return render_template('evaluate.html')
 
+
 @app.route('/calculate', methods=["POST"])
 def calculate():
     eaws_mode = request.form.get("eaws_mode", "auto")
@@ -30,7 +31,7 @@ def calculate():
         if manual_value in ["1", "2", "3", "4", "5"]:
             eaws_danger = int(manual_value)
         else:
-            return render_template('evaluate.html',error="Please select a manual danger level.",manual_required=True)
+            return render_template('evaluate.html',error="Please select a valid danger level.",manual_required=True,form_data=request.form)
     # User selects automatic mode
     else:
         eaws_danger = get_eaws_danger_level(location)

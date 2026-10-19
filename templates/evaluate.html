@@ -18,12 +18,21 @@
 
     <main style="padding: 40px; max-width: 500px; margin: 0 auto;">
         <h2>Enter Details</h2>
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
         <form action="/calculate" method="POST">
             <p>
             <label for="eaws_mode">Avalanche Rating:</label><br>
                 <select id="eaws_mode" name="eaws_mode" style="padding: 8px; width: 320px;">
-                    <option value="auto" selected>Auto-fetch live reading</option>
-                    <option value="manual">Manual Input</option>
+
+                <option value="auto" {% if not manual_required %}selected{% endif %}>
+                    Auto-fetch live reading
+                </option>
+                <option value="manual" {% if manual_required %}selected{% endif %}>
+                    Manual Input
+                </option>
+
                 </select>
             </p>
         <p>
